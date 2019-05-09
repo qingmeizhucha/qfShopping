@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mryan.qfshopping">
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <!--name，需要一个集成application类的子类-->
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".app.WelcomeActivity">
+            <!-- 过滤器，决定第一个显示的活动-->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+        <activity android:name=".app.MainActivity"></activity>
     </application>
-
 </manifest>
