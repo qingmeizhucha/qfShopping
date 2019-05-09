@@ -49,7 +49,7 @@ public class ChannelAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.item_channel, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         ResultBeanData.ResultBean.ChannelInfoBean channelInfoBean = channel_info.get(position);
@@ -57,9 +57,9 @@ public class ChannelAdapter extends BaseAdapter {
         holder.tvChannel.setText(channelInfoBean.getChannel_name());
         Glide.with(mContext).load(Constants.Base_URl_IMAGE + channelInfoBean.getImage())
                 .into(holder.ivChannel);
-
         return convertView;
     }
+
     class ViewHolder {
         @Bind(R.id.iv_channel)
         ImageView ivChannel;
