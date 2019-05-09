@@ -71,6 +71,9 @@ public class HomeRecycleAdapter extends RecyclerView.Adapter {
             ChannerViewHolder channelViewHolder = (ChannerViewHolder) holder;
             channelViewHolder.setData((ArrayList<ResultBeanData.ResultBean.ChannelInfoBean>) resultBean.getChannel_info());
         }
+        else if(getItemViewType(position) == 3){
+
+        }
     }
     public int getItemCount() {
         //决定当前容器RecyclerView存在几个item
