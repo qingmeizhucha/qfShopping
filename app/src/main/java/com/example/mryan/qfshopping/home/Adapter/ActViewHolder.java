@@ -53,6 +53,7 @@ class ActViewHolder extends RecyclerView.ViewHolder{
             @Override
             public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
+
                 ImageView imageView = new ImageView(mContext);
                 //拉伸图
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
