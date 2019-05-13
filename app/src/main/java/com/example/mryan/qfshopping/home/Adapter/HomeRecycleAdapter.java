@@ -1,6 +1,7 @@
 package com.example.mryan.qfshopping.home.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
@@ -45,41 +46,62 @@ public class HomeRecycleAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //==getView获取定制的xml布局设置RecyclerView，可以获取布局
-        if(viewType == BANNER){
+        if (viewType == BANNER) {
             return new BannerViewHolder(mLayoutInflater.inflate(R.layout.banner_viewpager, null)
                     , mContext, resultBean);
-        }
-        else if(viewType == CHANNEL){
+        } else if (viewType == CHANNEL) {
             return new ChannerViewHolder(mLayoutInflater.inflate(R.layout.channel_viewpager, null)
                     , mContext);
-        }
+        } else if (viewType == ACT) {
+            return new ActViewHolder(mLayoutInflater.inflate(R.layout.act_item, null), mContext);
+        }/*else if (viewType == SECKILL) {
+            return new
+                    SeckillViewHolder(mLayoutInflater.inflate(R.layout.seckill_item, null),
+                    mContext);
+        } else if (viewType == RECOMMEND) { return new
+                RecommendViewHolder(mLayoutInflater.inflate(R.layout.recommend_item, null), mContext);
+        } else if (viewType == HOT) {
+            return new
+                    HotViewHolder(mLayoutInflater.inflate(R.layout.hot_item, null),
+                    mContext);
+        }*/
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         //绑定ViewHolder视图的数据
-        if(getItemViewType(position) == BANNER){
+        if (getItemViewType(position) == BANNER) {
             BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
             try {
                 bannerViewHolder.setData(resultBean.getBanner_info());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if(getItemViewType(position)== CHANNEL ){
+        } else if (getItemViewType(position) == CHANNEL) {
             ChannerViewHolder channelViewHolder = (ChannerViewHolder) holder;
             channelViewHolder.setData((ArrayList<ResultBeanData.ResultBean.ChannelInfoBean>) resultBean.getChannel_info());
-        }
-        else if(getItemViewType(position) == 3){
+        } else if (getItemViewType(position) == ACT) {
+            ActViewHolder actViewHolder = (ActViewHolder) holder;
+           actViewHolder.setData(resultBean.getAct_info());
+        }/* else if (getItemViewType(position) == SECKILL) {
+            SeckillViewHolder seckillViewHolder = (SeckillViewHolder) holder;
+            seckillViewHolder.setData(resultBean.getSeckill_info());
+        } else if (getItemViewType(position) == RECOMMEND) {
+            RecommendViewHolder recommendViewHolder = (RecommendViewHolder) holder;
+            recommendViewHolder.setData(resultBean.getRecommend_info());
+        } else if (getItemViewType(position) == HOT) {
+            HotViewHolder hotViewHolder = (HotViewHolder) holder;
+            hotViewHolder.setData(resultBean.getHot_info());
+        }*/
 
-        }
     }
+
     public int getItemCount() {
         //决定当前容器RecyclerView存在几个item
-//以后做完后改成 6，现在只实现横幅广告，暂时写 1
-        return 2;
+        return 3;
     }
+
     public int getItemViewType(int position) {
         switch (position) {
             case BANNER:
@@ -111,17 +133,36 @@ public class HomeRecycleAdapter extends RecyclerView.Adapter {
     }
 
 
-    class ChannerViewHolder extends RecyclerView.ViewHolder{
+    class ChannerViewHolder extends RecyclerView.ViewHolder {
         public GridView gvChannel;
         public Context mContext;
-        public ChannerViewHolder(@NonNull View itemView,Context mContext) {
+
+        public ChannerViewHolder(@NonNull View itemView, Context mContext) {
             super(itemView);
             gvChannel = itemView.findViewById(R.id.gv_channel);
             this.mContext = mContext;
         }
-        public void setData(ArrayList<ResultBeanData.ResultBean.ChannelInfoBean> channelInfoBeans){
-            System.out.println("ttttttttttttttt" + channelInfoBeans.size());
-            gvChannel.setAdapter(new ChannelAdapter(mContext,channelInfoBeans));
+
+        public void setData(ArrayList<ResultBeanData.ResultBean.ChannelInfoBean> channelInfoBeans) {
+            gvChannel.setAdapter(new ChannelAdapter(mContext, channelInfoBeans));
+            //设置点击事件
+            gvChannel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //判断不能超时频道的范围，跳转活动
+                    if(position<10){
+                        /*Intent intent = new Intent(mContext,class);
+                        intent.putExtra("posistion");
+                        mContext.startActivities(intent);*/
+
+                    }
+                    Toast.makeText(mContext,"position" + position,Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
+
+    /*class ActViewHolder extends RecyclerView.ViewHolder{
+
+    }*/
 }
